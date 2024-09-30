@@ -42,14 +42,8 @@ public class PlayerMotor : MonoBehaviour
 
             if (crouching)
             {
-                controller.height = Mathf.Lerp(controller.height, 1, p);
+                controller.height = Mathf.Lerp(controller.height, 1, p);        
             }
-/*            
-            else if (crouching && !isGrounded)
-            {
-                controller.height = Math.Lerp(controller.height, 2, p);
-            }
-*/
             else
             {
                 controller.height = Mathf.Lerp(controller.height, 2, p);
@@ -116,8 +110,14 @@ public class PlayerMotor : MonoBehaviour
 
     public void jump()
     {
-        if (isGrounded && !crouching)
+        if (isGrounded)
         {
+            if (crouching)
+            {
+                crouching = false;
+                lerpCrouch = true;
+                crouchTimer = 0;
+            }
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
         }
     }
